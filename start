@@ -1,0 +1,23 @@
+#!/bin/bash
+
+python trainer.py \
+     --ps_hosts=localhost:2000 \
+     --worker_hosts=localhost:3000,localhost:3001 \
+     --job_name=ps --task_index=0 > ps0.log 2>&1 &
+python trainer.py \
+     --ps_hosts=localhost:2000 \
+     --worker_hosts=localhost:3000,localhost:3001 \
+     --job_name=worker --task_index=0 > worker0.log 2>&1 &
+python trainer.py \
+     --ps_hosts=localhost:2000 \
+     --worker_hosts=localhost:3000,localhost:3001 \
+     --job_name=worker --task_index=1 > worker1.log 2>&1 &
+
+JOBS=$(echo $(jobs -lp))
+trap "set -x; kill $JOBS" EXIT
+
+while :
+do
+	ps $JOBS
+	sleep 5
+done

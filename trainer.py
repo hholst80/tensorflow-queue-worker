@@ -40,8 +40,8 @@ def main(_):
                              task_index=FLAGS.task_index,
                              config=config)
 
-    queue_size = 100
-    dequeue_count = 10
+    queue_size = 200
+    dequeue_count = 100
 
     is_ps = (FLAGS.job_name == "ps")
     is_producer = (FLAGS.job_name == "producer")

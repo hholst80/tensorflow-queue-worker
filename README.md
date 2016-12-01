@@ -4,7 +4,7 @@ A small test to examine the slowness of TensorFlow FIFO queues.
 
 ## How to run
 
-1. Install tmuxinator and tmux with `sudo apt-et install tmuxinator tmux`.
+1. Install tmuxinator and tmux with `sudo apt-get install tmuxinator tmux`.
 2. Copy `queue.yml` to `~/.tmuxinator/queue.yml`.
 3. Start the example by running `mux start queue`.
 4. Detach from the session with `CTRL-b d`.

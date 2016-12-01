@@ -1,15 +1,22 @@
 name: queue
 startup_window: main
-pre_window: source activate tensorflow && export CUDA_VISIBLE_DEVICES=""
+pre_window: source activate tensorflow && export CUDA_VISIBLE_DEVICES="" PRODUCERS=localhost:3000,localhost:3001,localhost:3002,localhost:3003
 windows:
 - main:
     layout: even-vertical
     panes:
       - ps:
-        - python trainer.py --job_name=ps --task_index=0 --ps_hosts=localhost:2000 --producer_hosts=localhost:3000 --consumer_hosts=localhost:4000
+        - python trainer.py --job_name=ps --task_index=0 --ps_hosts=localhost:2000 --producer_hosts=$PRODUCERS --consumer_hosts=localhost:4000
       - consumer:
-        - python trainer.py --job_name=consumer --task_index=0 --ps_hosts=localhost:2000 --producer_hosts=localhost:3000 --consumer_hosts=localhost:4000
+        - python trainer.py --job_name=consumer --task_index=0 --ps_hosts=localhost:2000 --producer_hosts=$PRODUCERS --consumer_hosts=localhost:4000
+- producers:
+    layout: even-vertical
+    panes:
       - producer0:
-        - python trainer.py --job_name=producer --task_index=0 --ps_hosts=localhost:2000 --producer_hosts=localhost:3000,localhost:3001 --consumer_hosts=localhost:4000
+        - python trainer.py --job_name=producer --task_index=0 --ps_hosts=localhost:2000 --producer_hosts=$PRODUCERS --consumer_hosts=localhost:4000
       - producer1:
-        - python trainer.py --job_name=producer --task_index=1 --ps_hosts=localhost:2000 --producer_hosts=localhost:3000,localhost:3001 --consumer_hosts=localhost:4000
+        - python trainer.py --job_name=producer --task_index=1 --ps_hosts=localhost:2000 --producer_hosts=$PRODUCERS --consumer_hosts=localhost:4000
+      - producer2:
+        - python trainer.py --job_name=producer --task_index=2 --ps_hosts=localhost:2000 --producer_hosts=$PRODUCERS --consumer_hosts=localhost:4000
+      - producer3:
+        - python trainer.py --job_name=producer --task_index=3 --ps_hosts=localhost:2000 --producer_hosts=$PRODUCERS --consumer_hosts=localhost:4000

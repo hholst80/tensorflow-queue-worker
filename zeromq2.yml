@@ -1,0 +1,32 @@
+name: zeromq2
+startup_window: main
+pre_window: source activate tensorflow && export CUDA_VISIBLE_DEVICES="" PRODUCERS=localhost:3000,localhost:3001,localhost:3002,localhost:3003
+windows:
+- main:
+    layout: even-vertical
+    panes:
+      - consumer:
+        - python zeromq-test2.py --job_name=consumer --task_index=0
+- producers:
+    layout: even-vertical
+    panes:
+      - producer0:
+        - python zeromq-test2.py --job_name=producer --task_index=0
+      - producer1:
+        - python zeromq-test2.py --job_name=producer --task_index=1
+      - producer2:
+        - python zeromq-test2.py --job_name=producer --task_index=2
+      - producer3:
+        - python zeromq-test2.py --job_name=producer --task_index=3
+      - producer4:
+        - python zeromq-test2.py --job_name=producer --task_index=4
+      - producer5:
+        - python zeromq-test2.py --job_name=producer --task_index=5
+      - producer6:
+        - python zeromq-test2.py --job_name=producer --task_index=6
+      - producer7:
+        - python zeromq-test2.py --job_name=producer --task_index=7
+      - producer8:
+        - python zeromq-test2.py --job_name=producer --task_index=8
+      - producer9:
+        - python zeromq-test2.py --job_name=producer --task_index=9
